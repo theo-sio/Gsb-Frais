@@ -1,14 +1,16 @@
 <?php
 
-namespace App/Entity;
+namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Fraisforfait
  *
  * @ORM\Table(name="FraisForfait")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\FraisforfaitRepository")
  */
 class Fraisforfait
 {
@@ -48,6 +50,62 @@ class Fraisforfait
     public function __construct()
     {
         $this->idvisiteur = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getLibelle(): ?string
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle(?string $libelle): self
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getMontant(): ?string
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(?string $montant): self
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Fichefrais[]
+     */
+    public function getIdvisiteur(): Collection
+    {
+        return $this->idvisiteur;
+    }
+
+    public function addIdvisiteur(Fichefrais $idvisiteur): self
+    {
+        if (!$this->idvisiteur->contains($idvisiteur)) {
+            $this->idvisiteur[] = $idvisiteur;
+            $idvisiteur->addIdfraisforfait($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdvisiteur(Fichefrais $idvisiteur): self
+    {
+        if ($this->idvisiteur->removeElement($idvisiteur)) {
+            $idvisiteur->removeIdfraisforfait($this);
+        }
+
+        return $this;
     }
 
 }

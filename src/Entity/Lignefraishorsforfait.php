@@ -1,6 +1,6 @@
 <?php
 
-namespace App/Entity;
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Lignefraishorsforfait
  *
  * @ORM\Table(name="LigneFraisHorsForfait", indexes={@ORM\Index(name="idVisiteur", columns={"idVisiteur", "mois"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\LignefraishorsforfaitRepository")
  */
 class Lignefraishorsforfait
 {
@@ -52,6 +52,59 @@ class Lignefraishorsforfait
      * })
      */
     private $idvisiteur;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getLibelle(): ?string
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle(?string $libelle): self
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getMontant(): ?string
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(?string $montant): self
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getIdvisiteur(): ?Fichefrais
+    {
+        return $this->idvisiteur;
+    }
+
+    public function setIdvisiteur(?Fichefrais $idvisiteur): self
+    {
+        $this->idvisiteur = $idvisiteur;
+
+        return $this;
+    }
 
 
 }

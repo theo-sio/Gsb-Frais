@@ -1,14 +1,16 @@
 <?php
 
-namespace App/Entity;
+namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Fichefrais
  *
  * @ORM\Table(name="FicheFrais", indexes={@ORM\Index(name="idEtat", columns={"idEtat"}), @ORM\Index(name="IDX_1C4987DC1D06ADE3", columns={"idVisiteur"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\FicheFraisRepository")
  */
 class Fichefrais
 {
@@ -77,6 +79,98 @@ class Fichefrais
     public function __construct()
     {
         $this->idfraisforfait = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getMois(): ?string
+    {
+        return $this->mois;
+    }
+
+    public function getNbjustificatifs(): ?int
+    {
+        return $this->nbjustificatifs;
+    }
+
+    public function setNbjustificatifs(?int $nbjustificatifs): self
+    {
+        $this->nbjustificatifs = $nbjustificatifs;
+
+        return $this;
+    }
+
+    public function getMontantvalide(): ?string
+    {
+        return $this->montantvalide;
+    }
+
+    public function setMontantvalide(?string $montantvalide): self
+    {
+        $this->montantvalide = $montantvalide;
+
+        return $this;
+    }
+
+    public function getDatemodif(): ?\DateTimeInterface
+    {
+        return $this->datemodif;
+    }
+
+    public function setDatemodif(?\DateTimeInterface $datemodif): self
+    {
+        $this->datemodif = $datemodif;
+
+        return $this;
+    }
+
+    public function getIdetat(): ?Etat
+    {
+        return $this->idetat;
+    }
+
+    public function setIdetat(?Etat $idetat): self
+    {
+        $this->idetat = $idetat;
+
+        return $this;
+    }
+
+    public function getIdvisiteur(): ?Visiteur
+    {
+        return $this->idvisiteur;
+    }
+
+    public function setIdvisiteur(?Visiteur $idvisiteur): self
+    {
+        $this->idvisiteur = $idvisiteur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Fraisforfait[]
+     */
+    public function getIdfraisforfait(): Collection
+    {
+        return $this->idfraisforfait;
+    }
+
+    public function addIdfraisforfait(Fraisforfait $idfraisforfait): self
+    {
+        if (!$this->idfraisforfait->contains($idfraisforfait)) {
+            $this->idfraisforfait[] = $idfraisforfait;
+            $idfraisforfait->addIdvisiteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdfraisforfait(Fraisforfait $idfraisforfait): self
+    {
+        if ($this->idfraisforfait->removeElement($idfraisforfait)) {
+            $idfraisforfait->removeIdvisiteur($this);
+        }
+
+        return $this;
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App/Entity;
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Etat
  *
  * @ORM\Table(name="Etat")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\EtatRepository")
  */
 class Etat
 {
@@ -27,6 +27,23 @@ class Etat
      * @ORM\Column(name="libelle", type="string", length=30, nullable=true, options={"default"="NULL"})
      */
     private $libelle = 'NULL';
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getLibelle(): ?string
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle(?string $libelle): self
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
 
 
 }
