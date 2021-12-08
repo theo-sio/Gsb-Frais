@@ -8,10 +8,13 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-<?php $session = new Session(); ?>
-
+<div>
     {% include 'barNavigation.html.twig' %}
+</div>
+<div class="example-wrapper">
+
+
+    
 
     <h1>Bonjour {{app.session.get('prenom')}}</h1>
 
